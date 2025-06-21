@@ -2,7 +2,7 @@
 
 A Minecraft-themed interactive portfolio showcasing **Lakshya Chauhan** - Full-Stack Developer, YouTuber (1.5K+ subs), Digital Artist & Content Creator.
 
-## 🚀 Quick Start
+##  Quick Start
 
 \`\`\`bash
 # Clone and setup
@@ -17,7 +17,7 @@ npm run dev
 
 ## ✨ Features
 
-### 🎯 **Interactive Elements**
+###  **Interactive Elements**
 - **3D Minecraft Worlds** - Interactive scenes with React Three Fiber
 - **Terminal Interface** - Git-style commands (`git projects`, `git skills`, etc.)
 - **Welcome Popup** - Creative introduction with typewriter effects
