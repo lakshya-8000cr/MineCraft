@@ -4,8 +4,9 @@ import type React from "react"
 import { useState, useEffect, useRef } from "react"
 import { useRouter } from "next/navigation"
 import { Card } from "@/components/ui/card"
-import { Terminal } from "lucide-react"
+import { Terminal, Activity, Cpu, HardDrive, Youtube, Palette, Mic, Code, Star } from "lucide-react"
 import dynamic from "next/dynamic"
+import WelcomePopup from "../components/welcome-popup"
 
 // Safe 3D import
 const SimpleMinecraftScene = dynamic(() => import("../components/simple-minecraft-scene"), {
@@ -19,10 +20,14 @@ export default function MinecraftHub() {
   const router = useRouter()
   const [command, setCommand] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+  const [showWelcomePopup, setShowWelcomePopup] = useState(true)
+  const [skillIndex, setSkillIndex] = useState(0)
   const [history, setHistory] = useState<string[]>([
-    "🎮 WELCOME TO THE MINECRAFT DEV UNIVERSE! 🎮",
-    "⚡ INITIALIZING PORTFOLIO MATRIX...",
+    "🎮 WELCOME TO LAKSHYA'S MINECRAFT DEV UNIVERSE! 🎮",
+    "⚡ INITIALIZING MULTI-TALENT PORTFOLIO MATRIX...",
     "🔥 LOADING GIT PROTOCOLS...",
+    "🎨 ACTIVATING CREATIVE MODULES...",
+    "📺 CONNECTING YOUTUBE CHANNEL...",
     "✨ READY TO EXPLORE!",
     "",
     "🌟 AVAILABLE GIT COMMANDS:",
@@ -37,6 +42,21 @@ export default function MinecraftHub() {
     "",
   ])
   const terminalRef = useRef<HTMLDivElement>(null)
+
+  const skills = [
+    { icon: <Code className="w-4 h-4" />, name: "Full-Stack Dev", color: "text-emerald-400" },
+    { icon: <Youtube className="w-4 h-4" />, name: "YouTuber (1.5K+)", color: "text-red-400" },
+    { icon: <Palette className="w-4 h-4" />, name: "Digital Artist", color: "text-purple-400" },
+    { icon: <Mic className="w-4 h-4" />, name: "Video Editor", color: "text-blue-400" },
+  ]
+
+  // Rotate skills showcase
+  useEffect(() => {
+    const skillInterval = setInterval(() => {
+      setSkillIndex((prev) => (prev + 1) % skills.length)
+    }, 2000)
+    return () => clearInterval(skillInterval)
+  }, [])
 
   const executeGitCommand = (cmd: string) => {
     if (!cmd.trim() || isLoading) return
@@ -115,11 +135,13 @@ export default function MinecraftHub() {
         break
 
       case "status":
-        newHistory.push("🌟 PORTFOLIO STATUS:")
+        newHistory.push("🌟 LAKSHYA'S PORTFOLIO STATUS:")
         newHistory.push("  🔋 Power Level: OVER 9000!")
         newHistory.push("  🌐 Dimensions: 6 ACTIVE")
         newHistory.push("  ⚡ Git Energy: MAXIMUM")
         newHistory.push("  🎮 Mode: CREATIVE")
+        newHistory.push("  📺 YouTube: 1.5K+ SUBSCRIBERS")
+        newHistory.push("  🎨 Art Skills: LEGENDARY")
         setHistory([...newHistory, ""])
         setIsLoading(false)
         break
@@ -145,7 +167,6 @@ export default function MinecraftHub() {
     }
   }
 
-  // Safe scroll effect
   useEffect(() => {
     if (terminalRef.current) {
       terminalRef.current.scrollTop = terminalRef.current.scrollHeight
@@ -154,7 +175,10 @@ export default function MinecraftHub() {
 
   return (
     <div className="min-h-screen relative overflow-hidden">
-      {/* Simple Background - NO PARTICLES OR EFFECTS */}
+      {/* Enhanced Welcome Popup */}
+      {showWelcomePopup && <WelcomePopup onClose={() => setShowWelcomePopup(false)} />}
+
+      {/* Background */}
       <div
         className="fixed inset-0 bg-cover bg-center bg-no-repeat"
         style={{
@@ -163,6 +187,43 @@ export default function MinecraftHub() {
       />
 
       <div className="relative z-10 container mx-auto px-4 py-8">
+        {/* Subtle Skills Showcase Banner */}
+        <div className="mb-6">
+          <Card className="bg-gradient-to-r from-emerald-900/80 to-blue-900/80 border-emerald-600/50 backdrop-blur-sm">
+            <div className="p-4 flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                  <div className={`p-2 rounded-full bg-black/30 ${skills[skillIndex].color}`}>
+                    {skills[skillIndex].icon}
+                  </div>
+                  <div>
+                    <div className="text-white font-bold text-sm">Lakshya Chauhan</div>
+                    <div className={`text-xs ${skills[skillIndex].color} animate-pulse`}>{skills[skillIndex].name}</div>
+                  </div>
+                </div>
+              </div>
+              <div className="hidden md:flex items-center gap-6 text-xs">
+                <div className="text-center">
+                  <div className="text-emerald-400 font-bold">50+</div>
+                  <div className="text-emerald-300/70">Projects</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-red-400 font-bold">1.5K+</div>
+                  <div className="text-red-300/70">YouTube Subs</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-purple-400 font-bold">∞</div>
+                  <div className="text-purple-300/70">Artworks</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-blue-400 font-bold">3+</div>
+                  <div className="text-blue-300/70">Years Exp</div>
+                </div>
+              </div>
+            </div>
+          </Card>
+        </div>
+
         <div className="grid lg:grid-cols-2 gap-8 min-h-screen">
           {/* 3D World */}
           <div className="lg:col-span-1">
@@ -175,7 +236,7 @@ export default function MinecraftHub() {
               </div>
             </Card>
 
-            {/* Quick Action Buttons */}
+            {/* Enhanced Quick Action Buttons */}
             <div className="grid grid-cols-2 gap-2">
               {[
                 { cmd: "git projects", label: "🚀 Projects", color: "bg-blue-600 hover:bg-blue-700" },
@@ -201,25 +262,55 @@ export default function MinecraftHub() {
 
           {/* Terminal */}
           <div className="lg:col-span-1 flex flex-col">
-            <Card className="bg-black/95 border-green-600/70 backdrop-blur-sm flex-1 flex flex-col min-h-[500px]">
+            <Card className="bg-black/95 border-green-600/70 backdrop-blur-sm flex-1 flex flex-col shadow-2xl shadow-green-500/20">
               <div className="bg-gradient-to-r from-green-900/50 to-blue-900/50 px-4 py-2 border-b border-green-600/50 flex items-center gap-2">
                 <Terminal className="w-4 h-4 text-green-400" />
-                <span className="text-green-300 font-mono text-sm font-bold">minecraft-dev:~$</span>
+                <span className="text-green-300 font-mono text-sm font-bold">lakshya@minecraft-dev:~$</span>
+                <div className="ml-auto flex gap-1">
+                  <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                  <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                </div>
               </div>
 
+              {/* Terminal Content */}
               <div
                 ref={terminalRef}
-                className="flex-1 p-4 font-mono text-sm text-green-300 overflow-y-auto max-h-[350px]"
+                className="flex-1 p-4 font-mono text-sm text-green-300 overflow-y-auto"
+                style={{ height: "400px" }}
               >
                 {history.map((line, index) => (
                   <div key={`line-${index}`} className="mb-1 leading-relaxed">
                     {line}
                   </div>
                 ))}
-                {isLoading && <div className="text-yellow-400">⚡ Processing command...</div>}
+                {isLoading && <div className="text-yellow-400 animate-pulse">⚡ Processing command...</div>}
               </div>
 
-              <form onSubmit={handleSubmit} className="p-3 border-t border-green-600/50">
+              {/* Enhanced System Stats */}
+              <div className="px-4 py-2 border-t border-green-600/30 bg-black/50">
+                <div className="grid grid-cols-4 gap-2 text-xs">
+                  <div className="flex items-center gap-1 text-green-400">
+                    <Cpu className="w-3 h-3" />
+                    <span>CPU: 85%</span>
+                  </div>
+                  <div className="flex items-center gap-1 text-blue-400">
+                    <HardDrive className="w-3 h-3" />
+                    <span>RAM: 12GB</span>
+                  </div>
+                  <div className="flex items-center gap-1 text-purple-400">
+                    <Activity className="w-3 h-3" />
+                    <span>Creative</span>
+                  </div>
+                  <div className="flex items-center gap-1 text-yellow-400">
+                    <Star className="w-3 h-3" />
+                    <span>Multi-Talent</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Input Area */}
+              <form onSubmit={handleSubmit} className="p-3 border-t border-green-600/50 bg-black/90">
                 <div className="flex items-center gap-2">
                   <span className="text-green-400 font-mono text-sm font-bold">$</span>
                   <input
@@ -227,7 +318,7 @@ export default function MinecraftHub() {
                     value={command}
                     onChange={(e) => setCommand(e.target.value)}
                     disabled={isLoading}
-                    className="flex-1 bg-transparent text-green-300 font-mono text-sm outline-none border-b border-green-600/30 pb-1 focus:border-green-400 disabled:opacity-50"
+                    className="flex-1 bg-transparent text-green-300 font-mono text-sm outline-none border-b border-green-600/30 pb-1 focus:border-green-400 focus:shadow-lg focus:shadow-green-500/20 disabled:opacity-50"
                     placeholder={isLoading ? "Processing..." : "git <command>"}
                     autoFocus
                   />
