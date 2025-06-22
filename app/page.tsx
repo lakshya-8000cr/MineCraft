@@ -204,7 +204,7 @@ export default function MinecraftHub() {
               </div>
               <div className="hidden md:flex items-center gap-6 text-xs">
                 <div className="text-center">
-                  <div className="text-emerald-400 font-bold">50+</div>
+                  <div className="text-emerald-400 font-bold">10+</div>
                   <div className="text-emerald-300/70">Projects</div>
                 </div>
                 <div className="text-center">
@@ -216,7 +216,7 @@ export default function MinecraftHub() {
                   <div className="text-purple-300/70">Artworks</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-blue-400 font-bold">3+</div>
+                  <div className="text-blue-400 font-bold">2+</div>
                   <div className="text-blue-300/70">Years Exp</div>
                 </div>
               </div>
@@ -242,7 +242,7 @@ export default function MinecraftHub() {
                 { cmd: "git projects", label: "🚀 Projects", color: "bg-blue-600 hover:bg-blue-700" },
                 { cmd: "git skills", label: "🛠️ Skills", color: "bg-purple-600 hover:bg-purple-700" },
                 { cmd: "git about", label: "👤 About", color: "bg-green-600 hover:bg-green-700" },
-                { cmd: "git help", label: "🆘 Help", color: "bg-orange-600 hover:bg-orange-700" },
+                { cmd: "git help", label: " Help", color: "bg-orange-600 hover:bg-orange-700" },
               ].map((btn) => (
                 <button
                   key={btn.cmd}
