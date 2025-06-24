@@ -4,7 +4,20 @@ import type React from "react"
 import { useState, useEffect, useRef } from "react"
 import { useRouter } from "next/navigation"
 import { Card } from "@/components/ui/card"
-import { Terminal, Activity, Cpu, HardDrive, Youtube, Palette, Mic, Code, Star } from "lucide-react"
+import {
+  Terminal,
+  Activity,
+  Cpu,
+  HardDrive,
+  Youtube,
+  Palette,
+  Mic,
+  Code,
+  Star,
+  Github,
+  Mail,
+  Linkedin,
+} from "lucide-react"
 import dynamic from "next/dynamic"
 import WelcomePopup from "../components/welcome-popup"
 
@@ -62,6 +75,38 @@ export default function MinecraftHub() {
     { icon: <Youtube className="w-4 h-4" />, name: "YouTuber (1.5K+)", color: "text-red-400" },
     { icon: <Palette className="w-4 h-4" />, name: "Digital Artist", color: "text-purple-400" },
     { icon: <Mic className="w-4 h-4" />, name: "Video Editor", color: "text-blue-400" },
+  ]
+
+  // Quick Links Data
+  const quickLinks = [
+    {
+      name: "GitHub",
+      icon: <Github className="w-5 h-5" />,
+      url: "https://github.com/lakshyachauhan", // Replace with your GitHub URL
+      color: "bg-gray-700 hover:bg-gray-600 text-white",
+      description: "Code Repository",
+    },
+    {
+      name: "YouTube",
+      icon: <Youtube className="w-5 h-5" />,
+      url: "https://youtube.com/@lakshyachauhan", // Replace with your YouTube channel URL
+      color: "bg-red-600 hover:bg-red-500 text-white",
+      description: "1.5K+ Subscribers",
+    },
+    {
+      name: "LinkedIn",
+      icon: <Linkedin className="w-5 h-5" />,
+      url: "https://linkedin.com/in/lakshyachauhan", // Replace with your LinkedIn URL
+      color: "bg-blue-600 hover:bg-blue-500 text-white",
+      description: "Professional Network",
+    },
+    {
+      name: "Gmail",
+      icon: <Mail className="w-5 h-5" />,
+      url: "mailto:lakshya@example.com", // Replace with your email
+      color: "bg-green-600 hover:bg-green-500 text-white",
+      description: "Get in Touch",
+    },
   ]
 
   // Rotate skills showcase
@@ -216,22 +261,60 @@ export default function MinecraftHub() {
                   </div>
                 </div>
               </div>
-              <div className="hidden md:flex items-center gap-6 text-xs">
-                <div className="text-center">
-                  <div className="text-emerald-400 font-bold">10+</div>
-                  <div className="text-emerald-300/70">Projects</div>
+
+              <div className="flex items-center gap-6">
+                {/* Social Media Icons */}
+                <div className="flex items-center gap-2">
+                  <a
+                    href="https://github.com/lakshya-8000cr"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 bg-black/40 hover:bg-black/60 rounded-lg transition-all duration-200 hover:scale-110"
+                  >
+                    <Github className="w-4 h-4 text-gray-300 hover:text-white" />
+                  </a>
+                  <a
+                    href="https://www.youtube.com/@LAKSHYANET"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 bg-black/40 hover:bg-red-600/60 rounded-lg transition-all duration-200 hover:scale-110"
+                  >
+                    <Youtube className="w-4 h-4 text-gray-300 hover:text-red-400" />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/lakshya-chauhan-297715331/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 bg-black/40 hover:bg-blue-600/60 rounded-lg transition-all duration-200 hover:scale-110"
+                  >
+                    <Linkedin className="w-4 h-4 text-gray-300 hover:text-blue-400" />
+                  </a>
+                  <a
+                    href="mailto:lakshyachauhan147@gmail.com"
+                    className="p-2 bg-black/40 hover:bg-green-600/60 rounded-lg transition-all duration-200 hover:scale-110"
+                  >
+                    <Mail className="w-4 h-4 text-gray-300 hover:text-green-400" />
+                  </a>
                 </div>
-                <div className="text-center">
-                  <div className="text-red-400 font-bold">1.5K+</div>
-                  <div className="text-red-300/70">YouTube Subs</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-purple-400 font-bold">∞</div>
-                  <div className="text-purple-300/70">Artworks</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-blue-400 font-bold">2+</div>
-                  <div className="text-blue-300/70">Years Exp</div>
+
+                {/* Stats - Hidden on smaller screens to make room for icons */}
+                <div className="hidden lg:flex items-center gap-6 text-xs">
+                  <div className="text-center">
+                    <div className="text-emerald-400 font-bold">10+</div>
+                    <div className="text-emerald-300/70">Projects</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-red-400 font-bold">1.5K+</div>
+                    <div className="text-red-300/70">YouTube Subs</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-purple-400 font-bold">∞</div>
+                    <div className="text-purple-300/70">Artworks</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-blue-400 font-bold">2+</div>
+                    <div className="text-blue-300/70">Years Exp</div>
+                  </div>
                 </div>
               </div>
             </div>

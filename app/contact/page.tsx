@@ -1,10 +1,23 @@
 "use client"
 
+import type React from "react"
+
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, Mail, Github, Linkedin, Twitter, MessageSquare, Send, MapPin } from "lucide-react"
+import {
+  ArrowLeft,
+  Mail,
+  Github,
+  Linkedin,
+  Twitter,
+  MessageSquare,
+  Send,
+  MapPin,
+  CheckCircle,
+  AlertCircle,
+} from "lucide-react"
 import { Canvas } from "@react-three/fiber"
 import { OrbitControls, Box, Text } from "@react-three/drei"
 
@@ -38,6 +51,16 @@ export default function ContactPage() {
   const router = useRouter()
   const [particles, setParticles] = useState<Array<{ id: number; x: number; y: number; opacity: number }>>([])
 
+  // Form state
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
+
   useEffect(() => {
     const interval = setInterval(() => {
       setParticles((prev) => {
@@ -61,42 +84,77 @@ export default function ContactPage() {
     return () => clearInterval(interval)
   }, [])
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setSubmitStatus("idle")
+
+    try {
+      // Using Formspree (free service) - replace YOUR_FORM_ID with your actual Formspree form ID
+      const response = await fetch("https://formspree.io/f/mjkrazny", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }),
+      })
+
+      if (response.ok) {
+        setSubmitStatus("success")
+        setFormData({ name: "", email: "", subject: "", message: "" })
+      } else {
+        setSubmitStatus("error")
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error)
+      setSubmitStatus("error")
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   const contactMethods = [
     {
       name: "Email",
-      value: "alex@minecraft-dev.com",
+      value: "lakshyachauhan088@gmail.com", // Replace with your email
       icon: <Mail className="w-6 h-6" />,
       color: "blue",
-      action: "mailto:alex@minecraft-dev.com",
+      action: "mailto:lakshyachauhan088@gmail.com", // Replace with your email
     },
     {
       name: "GitHub",
-      value: "@minecraft-dev",
+      value: "@lakshyachauhan", // Replace with your GitHub
       icon: <Github className="w-6 h-6" />,
       color: "gray",
-      action: "https://github.com/minecraft-dev",
+      action: "https://github.com/lakshya-8000cr", // Replace with your GitHub
     },
     {
       name: "LinkedIn",
-      value: "Alex Minecraft",
+      value: "Lakshya Chauhan", // Replace with your name
       icon: <Linkedin className="w-6 h-6" />,
       color: "blue",
-      action: "https://linkedin.com/in/minecraft-dev",
+      action: "https://www.linkedin.com/in/lakshya-chauhan-297715331/", // Replace with your LinkedIn
     },
-    {
-      name: "Twitter",
-      value: "@MinecraftDev",
-      icon: <Twitter className="w-6 h-6" />,
-      color: "cyan",
-      action: "https://twitter.com/MinecraftDev",
-    },
-    {
-      name: "Discord",
-      value: "MinecraftDev#1234",
-      icon: <MessageSquare className="w-6 h-6" />,
-      color: "purple",
-      action: "https://discord.com/users/MinecraftDev",
-    },
+    // {
+    //   name: "Discord",
+    //   value: "LakshyaChauhan#1234", // Replace with your Discord
+    //   icon: <MessageSquare className="w-6 h-6" />,
+    //   color: "purple",
+    //   action: "https://discord.com/users/LakshyaChauhan", // Replace with your Discord
+    // },
   ]
 
   const getContactColors = (color: string) => {
@@ -129,9 +187,6 @@ export default function ContactPage() {
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/images/minecraft-cave.png')`,
         }}
       />
-      {/* <div className="fixed inset-0">
-        <ContactScene />
-      </div> */}
 
       {/* Particles */}
       {particles.map((particle) => (
@@ -204,7 +259,7 @@ export default function ContactPage() {
               <div className="space-y-3 text-green-100/80">
                 <div className="flex items-center gap-3">
                   <MapPin className="w-4 h-4 text-green-400" />
-                  <span>San Francisco, CA (PST/PDT)</span>
+                  <span>India (IST)</span> {/* Update with your location */}
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="w-3 h-3 bg-green-400 rounded-full"></div>
@@ -226,42 +281,87 @@ export default function ContactPage() {
           <Card className="bg-indigo-900/90 border-indigo-600/70 backdrop-blur-none">
             <div className="p-8">
               <h2 className="text-2xl font-bold text-indigo-300 mb-6 text-center">Send a Message</h2>
-              <form className="space-y-6">
+
+              {/* Success/Error Messages */}
+              {submitStatus === "success" && (
+                <div className="mb-6 p-4 bg-green-900/50 border border-green-600/50 rounded flex items-center gap-2">
+                  <CheckCircle className="w-5 h-5 text-green-400" />
+                  <span className="text-green-300">Message sent successfully! I'll get back to you soon.</span>
+                </div>
+              )}
+
+              {submitStatus === "error" && (
+                <div className="mb-6 p-4 bg-red-900/50 border border-red-600/50 rounded flex items-center gap-2">
+                  <AlertCircle className="w-5 h-5 text-red-400" />
+                  <span className="text-red-300">Failed to send message. Please try again or contact me directly.</span>
+                </div>
+              )}
+
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label className="block text-indigo-300 font-medium mb-2">Name</label>
+                  <label className="block text-indigo-300 font-medium mb-2">Name *</label>
                   <input
                     type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    required
                     className="w-full p-3 bg-black/30 border border-indigo-600/30 rounded text-white placeholder-gray-400 focus:border-indigo-400 focus:outline-none"
                     placeholder="Your name"
                   />
                 </div>
                 <div>
-                  <label className="block text-indigo-300 font-medium mb-2">Email</label>
+                  <label className="block text-indigo-300 font-medium mb-2">Email *</label>
                   <input
                     type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
                     className="w-full p-3 bg-black/30 border border-indigo-600/30 rounded text-white placeholder-gray-400 focus:border-indigo-400 focus:outline-none"
                     placeholder="your.email@example.com"
                   />
                 </div>
                 <div>
-                  <label className="block text-indigo-300 font-medium mb-2">Subject</label>
+                  <label className="block text-indigo-300 font-medium mb-2">Subject *</label>
                   <input
                     type="text"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleInputChange}
+                    required
                     className="w-full p-3 bg-black/30 border border-indigo-600/30 rounded text-white placeholder-gray-400 focus:border-indigo-400 focus:outline-none"
                     placeholder="What's this about?"
                   />
                 </div>
                 <div>
-                  <label className="block text-indigo-300 font-medium mb-2">Message</label>
+                  <label className="block text-indigo-300 font-medium mb-2">Message *</label>
                   <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    required
                     rows={6}
                     className="w-full p-3 bg-black/30 border border-indigo-600/30 rounded text-white placeholder-gray-400 focus:border-indigo-400 focus:outline-none resize-none"
                     placeholder="Tell me about your project or just say hello!"
                   />
                 </div>
-                <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white">
-                  <Send className="w-4 h-4 mr-2" />
-                  Send Message
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-indigo-600 hover:bg-indigo-700 text-white disabled:opacity-50"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <div className="w-4 h-4 mr-2 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-4 h-4 mr-2" />
+                      Send Message
+                    </>
+                  )}
                 </Button>
               </form>
 
@@ -285,7 +385,7 @@ export default function ContactPage() {
             <div className="flex flex-wrap justify-center gap-4">
               <Button
                 className="bg-blue-600 hover:bg-blue-700 text-white"
-                onClick={() => window.open("mailto:alex@minecraft-dev.com", "_blank")}
+                onClick={() => window.open("mailto:lakshya@example.com", "_blank")} // Replace with your email
               >
                 <Mail className="w-4 h-4 mr-2" />
                 Email Me
@@ -293,7 +393,7 @@ export default function ContactPage() {
               <Button
                 variant="outline"
                 className="bg-black/30 text-white border-gray-600/50 hover:bg-gray-800/50"
-                onClick={() => window.open("https://github.com/minecraft-dev", "_blank")}
+                onClick={() => window.open("https://github.com/lakshyachauhan", "_blank")} // Replace with your GitHub
               >
                 <Github className="w-4 h-4 mr-2" />
                 View GitHub
