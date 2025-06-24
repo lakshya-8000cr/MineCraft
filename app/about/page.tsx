@@ -113,22 +113,17 @@ export default function AboutPage() {
                 <div className="w-32 h-32 mx-auto mb-4 bg-green-400/20 rounded-full flex items-center justify-center">
                   <User className="w-16 h-16 text-green-400" />
                 </div>
-                <h2 className="text-3xl font-bold text-green-300 mb-2">Alex Minecraft</h2>
-                <p className="text-green-100/80">Full-Stack Developer & Digital Architect</p>
+                <h2 className="text-3xl font-bold text-green-300 mb-2">Lakshya Chauhan</h2>
+                <p className="text-green-100/80">Full-Stack Developer | YouTuber | Entrepreneur Enthusiast | Digital Architect</p>
               </div>
 
               <div className="space-y-6 text-green-100/90">
                 <p className="text-lg leading-relaxed">
-                  Welcome to my digital realm! I'm a passionate developer who loves crafting experiences that blend
-                  creativity with functionality, much like building in Minecraft - block by block, with attention to
-                  detail and endless possibilities.
+Hey! I’m Lakshya — a full-stack developer driven by creativity, curiosity, and the excitement of building something meaningful from scratch. With over 1 years of experience, I create dynamic web apps that solve real-world problems and offer smooth user experiences.
                 </p>
 
                 <p>
-                  With over 4 years of experience in software development, I specialize in creating robust web
-                  applications, mobile experiences, and innovative solutions that solve real-world problems. My journey
-                  started with curiosity about how things work, and it evolved into a passion for building things that
-                  matter.
+                 I’m also a YouTube content creator, sharing coding tutorials, dev insights, and AI-powered projects to inspire and educate fellow tech enthusiasts. I’m deeply passionate about innovation and constantly exploring startup ideas — I’m an entrepreneur enthusiast who loves combining tech with business to create impact.
                 </p>
 
                 <p>
@@ -151,15 +146,19 @@ export default function AboutPage() {
               <div className="space-y-3 text-blue-100/80">
                 <div className="flex items-center gap-3">
                   <MapPin className="w-4 h-4 text-blue-400" />
-                  <span>Based in San Francisco, CA</span>
+                  <span>Based in India , Chandigarh</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Calendar className="w-4 h-4 text-blue-400" />
-                  <span>4+ years of experience</span>
+                  <span>1 + years of experience</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Code className="w-4 h-4 text-blue-400" />
                   <span>Full-Stack Developer</span>
+                </div>
+                  <div className="flex items-center gap-3">
+                  <Code className="w-4 h-4 text-blue-400" />
+                  <span>Youtuber</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Coffee className="w-4 h-4 text-blue-400" />
@@ -176,14 +175,17 @@ export default function AboutPage() {
               </h3>
               <div className="grid grid-cols-2 gap-3">
                 {[
-                  "🎮 Gaming",
-                  "🏗️ Building",
-                  "📚 Learning",
-                  "🎨 Design",
-                  "🤖 AI/ML",
-                  "🌱 Open Source",
-                  "📸 Photography",
-                  "🎵 Music",
+
+                  " Gaming",
+                  " Building",
+                  " Learning",
+                  " Content Creation",
+                  " AI",
+                  " Artist(Painter)",
+                  " Editing",
+                  " Music",
+                  " Entrepreneural Works",
+
                 ].map((interest) => (
                   <div key={interest} className="bg-emerald-800/20 p-2 rounded text-emerald-100/80 text-sm text-center">
                     {interest}
@@ -201,27 +203,27 @@ export default function AboutPage() {
               <div className="space-y-3 text-amber-100/80 text-sm">
                 <div className="flex items-start gap-2">
                   <span className="text-amber-400">•</span>
-                  <span>Built my first website at age 12</span>
+                  <span>Built my first website using HTML, CSS & JS during school</span>
                 </div>
                 <div className="flex items-start gap-2">
                   <span className="text-amber-400">•</span>
-                  <span>Have played Minecraft for over 10 years</span>
+                  <span>Created multiple hackathon projects with unique AI integrations</span>
                 </div>
                 <div className="flex items-start gap-2">
                   <span className="text-amber-400">•</span>
-                  <span>Contributed to 50+ open source projects</span>
+                  <span>I’m deeply passionate about startup culture and building real-world solutions</span>
                 </div>
                 <div className="flex items-start gap-2">
                   <span className="text-amber-400">•</span>
-                  <span>Can solve a Rubik's cube in under 2 minutes</span>
+                  <span>Founder of projects like EduSphere, NyayGPT, and SignSpeak AI</span>
                 </div>
                 <div className="flex items-start gap-2">
                   <span className="text-amber-400">•</span>
-                  <span>Favorite programming language changes monthly</span>
+                  <span>Always balancing between coding, ideating, and pitching ideas</span>
                 </div>
                 <div className="flex items-start gap-2">
                   <span className="text-amber-400">•</span>
-                  <span>Built this portfolio inspired by Minecraft</span>
+                  <span>Can explain big ideas simply — I love helping friends understand code</span>
                 </div>
               </div>
             </Card>
@@ -237,7 +239,7 @@ export default function AboutPage() {
               contribute to something greater than the sum of its parts. Just like in Minecraft, the only limit is your
               imagination."
             </blockquote>
-            <div className="mt-4 text-gray-400">- Alex Minecraft, Digital Architect</div>
+            <div className="mt-4 text-gray-400">- Lakshya Chauhan , Digital Architect</div>
           </div>
         </Card>
       </div>

@@ -20,7 +20,21 @@ export default function MinecraftHub() {
   const router = useRouter()
   const [command, setCommand] = useState("")
   const [isLoading, setIsLoading] = useState(false)
-  const [showWelcomePopup, setShowWelcomePopup] = useState(true)
+  const [showWelcomePopup, setShowWelcomePopup] = useState(false)
+
+  // Check if popup has been shown before
+  useEffect(() => {
+    const hasSeenPopup = localStorage.getItem("hasSeenWelcomePopup")
+    if (!hasSeenPopup) {
+      setShowWelcomePopup(true)
+    }
+  }, [])
+
+  // Function to handle popup close
+  const handleClosePopup = () => {
+    setShowWelcomePopup(false)
+    localStorage.setItem("hasSeenWelcomePopup", "true")
+  }
   const [skillIndex, setSkillIndex] = useState(0)
   const [history, setHistory] = useState<string[]>([
     "🎮 WELCOME TO LAKSHYA'S MINECRAFT DEV UNIVERSE! 🎮",
@@ -176,15 +190,15 @@ export default function MinecraftHub() {
   return (
     <div className="min-h-screen relative overflow-hidden">
       {/* Enhanced Welcome Popup */}
-      {showWelcomePopup && <WelcomePopup onClose={() => setShowWelcomePopup(false)} />}
+      {showWelcomePopup && <WelcomePopup onClose={handleClosePopup} />}
 
       {/* Background */}
       <div
         className="fixed inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/images/minecraft-bg.png')`,
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/images/main2.jpg')`,
         }}
-      />
+      ></div>
 
       <div className="relative z-10 container mx-auto px-4 py-8">
         {/* Subtle Skills Showcase Banner */}
