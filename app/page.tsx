@@ -17,6 +17,14 @@ import {
   Github,
   Mail,
   Linkedin,
+  User,
+  Trophy,
+  HelpCircle,
+  BarChart3,
+  Trash2,
+  MessageCircle,
+  Zap,
+  Sparkles,
 } from "lucide-react"
 import dynamic from "next/dynamic"
 import WelcomePopup from "../components/welcome-popup"
@@ -58,11 +66,11 @@ export default function MinecraftHub() {
     "✨ READY TO EXPLORE!",
     "",
     "🌟 AVAILABLE GIT COMMANDS:",
-    "  git projects     - 🚀 View my projects",
-    "  git skills       - 🛠️  Check my skills",
-    "  git about        - 👤 About me",
-    "  git contact      - 📧 Get in touch",
-    "  git achievements - 🏆 View achievements",
+    "  git projects     - View my projects",
+    "  git skills       - Check my skills",
+    "  git about        - About me",
+    "  git contact      - Get in touch",
+    "  git achievements - View achievements",
     "  git help         - 🆘 Show all commands",
     "",
     "💡 Type a command and press Enter!",
@@ -77,35 +85,63 @@ export default function MinecraftHub() {
     { icon: <Mic className="w-4 h-4" />, name: "Video Editor", color: "text-blue-400" },
   ]
 
-  // Quick Links Data
-  const quickLinks = [
+  // All available commands with their details
+  const allCommands = [
     {
-      name: "GitHub",
-      icon: <Github className="w-5 h-5" />,
-      url: "https://github.com/lakshyachauhan", // Replace with your GitHub URL
-      color: "bg-gray-700 hover:bg-gray-600 text-white",
-      description: "Code Repository",
+      cmd: "git projects",
+      label: "Projects",
+      icon: <Code className="w-4 h-4" />,
+      color: "bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800",
+      description: "View my coding projects",
     },
     {
-      name: "YouTube",
-      icon: <Youtube className="w-5 h-5" />,
-      url: "https://youtube.com/@lakshyachauhan", // Replace with your YouTube channel URL
-      color: "bg-red-600 hover:bg-red-500 text-white",
-      description: "1.5K+ Subscribers",
+      cmd: "git skills",
+      label: "Skills",
+      icon: <Zap className="w-4 h-4" />,
+      color: "bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800",
+      description: "Check my technical skills",
     },
     {
-      name: "LinkedIn",
-      icon: <Linkedin className="w-5 h-5" />,
-      url: "https://linkedin.com/in/lakshyachauhan", // Replace with your LinkedIn URL
-      color: "bg-blue-600 hover:bg-blue-500 text-white",
-      description: "Professional Network",
+      cmd: "git about",
+      label: "About",
+      icon: <User className="w-4 h-4" />,
+      color: "bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800",
+      description: "Learn about me",
     },
     {
-      name: "Gmail",
-      icon: <Mail className="w-5 h-5" />,
-      url: "mailto:lakshya@example.com", // Replace with your email
-      color: "bg-green-600 hover:bg-green-500 text-white",
-      description: "Get in Touch",
+      cmd: "git contact",
+      label: "Contact",
+      icon: <MessageCircle className="w-4 h-4" />,
+      color: "bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800",
+      description: "Get in touch",
+    },
+    {
+      cmd: "git achievements",
+      label: "Achievements",
+      icon: <Trophy className="w-4 h-4" />,
+      color: "bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-700 hover:to-orange-700",
+      description: "View my accomplishments",
+    },
+    {
+      cmd: "git status",
+      label: "Status",
+      icon: <BarChart3 className="w-4 h-4" />,
+      color: "bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800",
+      description: "Check portfolio status",
+    },
+    {
+      cmd: "git help",
+      label: "🆘 Help",
+      icon: <HelpCircle className="w-4 h-4" />,
+      color: "bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700",
+      description: "Show all commands",
+    },
+    {
+      cmd: "git clear",
+      label: "🧹 Clear",
+      icon: <Trash2 className="w-4 h-4" />,
+      color: "bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800",
+      description: "Clear terminal",
     },
   ]
 
@@ -245,75 +281,80 @@ export default function MinecraftHub() {
         }}
       ></div>
 
-      <div className="relative z-10 container mx-auto px-4 py-8">
-        {/* Subtle Skills Showcase Banner */}
-        <div className="mb-6">
-          <Card className="bg-gradient-to-r from-emerald-900/80 to-blue-900/80 border-emerald-600/50 backdrop-blur-sm">
-            <div className="p-4 flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2">
-                  <div className={`p-2 rounded-full bg-black/30 ${skills[skillIndex].color}`}>
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
+        {/* Enhanced Skills Showcase Banner */}
+        <div className="mb-4 sm:mb-6">
+          <Card className="bg-gradient-to-r from-emerald-900/90 to-blue-900/90 border-emerald-500/50 backdrop-blur-md shadow-2xl shadow-emerald-500/20">
+            <div className="p-4 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-3 sm:gap-4">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className={`p-2 sm:p-3 rounded-full bg-black/40 ${skills[skillIndex].color} shadow-lg`}>
                     {skills[skillIndex].icon}
                   </div>
                   <div>
-                    <div className="text-white font-bold text-sm">Lakshya Chauhan</div>
-                    <div className={`text-xs ${skills[skillIndex].color} animate-pulse`}>{skills[skillIndex].name}</div>
+                    <div className="text-white font-bold text-base sm:text-lg flex items-center gap-2">
+                      Lakshya Chauhan
+                      <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400 animate-pulse" />
+                    </div>
+                    <div className={`text-xs sm:text-sm ${skills[skillIndex].color} animate-pulse font-medium`}>
+                      {skills[skillIndex].name}
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div className="flex items-center gap-6">
-                {/* Social Media Icons */}
-                <div className="flex items-center gap-2">
+              <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
+                {/* Enhanced Social Media Icons */}
+                <div className="flex items-center gap-2 sm:gap-3">
                   <a
                     href="https://github.com/lakshya-8000cr"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 bg-black/40 hover:bg-black/60 rounded-lg transition-all duration-200 hover:scale-110"
+                    className="p-2 sm:p-3 bg-black/50 hover:bg-black/70 rounded-xl transition-all duration-300 hover:scale-110 shadow-lg hover:shadow-xl"
                   >
-                    <Github className="w-4 h-4 text-gray-300 hover:text-white" />
+                    <Github className="w-4 h-4 sm:w-5 sm:h-5 text-gray-300 hover:text-white" />
                   </a>
                   <a
                     href="https://www.youtube.com/@LAKSHYANET"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 bg-black/40 hover:bg-red-600/60 rounded-lg transition-all duration-200 hover:scale-110"
+                    className="p-2 sm:p-3 bg-black/50 hover:bg-red-600/70 rounded-xl transition-all duration-300 hover:scale-110 shadow-lg hover:shadow-xl"
                   >
-                    <Youtube className="w-4 h-4 text-gray-300 hover:text-red-400" />
+                    <Youtube className="w-4 h-4 sm:w-5 sm:h-5 text-gray-300 hover:text-red-400" />
                   </a>
                   <a
                     href="https://www.linkedin.com/in/lakshya-chauhan-297715331/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 bg-black/40 hover:bg-blue-600/60 rounded-lg transition-all duration-200 hover:scale-110"
+                    className="p-2 sm:p-3 bg-black/50 hover:bg-blue-600/70 rounded-xl transition-all duration-300 hover:scale-110 shadow-lg hover:shadow-xl"
                   >
-                    <Linkedin className="w-4 h-4 text-gray-300 hover:text-blue-400" />
+                    <Linkedin className="w-4 h-4 sm:w-5 sm:h-5 text-gray-300 hover:text-blue-400" />
                   </a>
                   <a
                     href="mailto:lakshyachauhan147@gmail.com"
-                    className="p-2 bg-black/40 hover:bg-green-600/60 rounded-lg transition-all duration-200 hover:scale-110"
+                    className="p-2 sm:p-3 bg-black/50 hover:bg-green-600/70 rounded-xl transition-all duration-300 hover:scale-110 shadow-lg hover:shadow-xl"
                   >
-                    <Mail className="w-4 h-4 text-gray-300 hover:text-green-400" />
+                    <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-gray-300 hover:text-green-400" />
                   </a>
                 </div>
 
-                {/* Stats - Hidden on smaller screens to make room for icons */}
-                <div className="hidden lg:flex items-center gap-6 text-xs">
+                {/* Enhanced Stats */}
+                <div className="hidden lg:flex items-center gap-6 xl:gap-8 text-sm">
                   <div className="text-center">
-                    <div className="text-emerald-400 font-bold">10+</div>
-                    <div className="text-emerald-300/70">Projects</div>
+                    <div className="text-emerald-400 font-bold text-lg xl:text-xl">6+</div>
+                    <div className="text-emerald-300/80 text-xs">Projects</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-red-400 font-bold">1.5K+</div>
-                    <div className="text-red-300/70">YouTube Subs</div>
+                    <div className="text-red-400 font-bold text-lg xl:text-xl">1.5K+</div>
+                    <div className="text-red-300/80 text-xs">YouTube Subs</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-purple-400 font-bold">∞</div>
-                    <div className="text-purple-300/70">Artworks</div>
+                    <div className="text-purple-400 font-bold text-lg xl:text-xl">∞</div>
+                    <div className="text-purple-300/80 text-xs">Artworks</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-blue-400 font-bold">2+</div>
-                    <div className="text-blue-300/70">Years Exp</div>
+                    <div className="text-blue-400 font-bold text-lg xl:text-xl">2+</div>
+                    <div className="text-blue-300/80 text-xs">Years Exp</div>
                   </div>
                 </div>
               </div>
@@ -321,101 +362,128 @@ export default function MinecraftHub() {
           </Card>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8 min-h-screen">
-          {/* 3D World */}
-          <div className="lg:col-span-1">
-            <Card className="bg-black/80 border-green-600/70 backdrop-blur-sm h-96 mb-6 overflow-hidden">
-              <div className="p-4 h-full">
-                <h3 className="text-green-300 font-bold mb-2 text-center">🌟 MINECRAFT UNIVERSE 🌟</h3>
-                <div className="h-80 border border-green-600/30 rounded bg-black/20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+          {/* Enhanced 3D World & Command Center */}
+          <div className="lg:col-span-1 space-y-4 sm:space-y-6">
+            {/* 3D Scene */}
+            <Card className="bg-black/90 border-green-500/70 backdrop-blur-md shadow-2xl shadow-green-500/20 overflow-hidden">
+              <div className="p-4 sm:p-6 h-full">
+                <h3 className="text-green-300 font-bold mb-3 sm:mb-4 text-center text-lg sm:text-xl flex items-center justify-center gap-2">
+                  🌟 MINECRAFT UNIVERSE 🌟<div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                </h3>
+                <div className="h-64 sm:h-80 border border-green-600/50 rounded-lg bg-black/30 shadow-inner">
                   <SimpleMinecraftScene />
                 </div>
               </div>
             </Card>
 
-            {/* Enhanced Quick Action Buttons */}
-            <div className="grid grid-cols-2 gap-2">
-              {[
-                { cmd: "git projects", label: "🚀 Projects", color: "bg-blue-600 hover:bg-blue-700" },
-                { cmd: "git skills", label: "🛠️ Skills", color: "bg-purple-600 hover:bg-purple-700" },
-                { cmd: "git about", label: "👤 About", color: "bg-green-600 hover:bg-green-700" },
-                { cmd: "git help", label: " Help", color: "bg-orange-600 hover:bg-orange-700" },
-              ].map((btn) => (
-                <button
-                  key={btn.cmd}
-                  onClick={() => {
-                    if (!isLoading) {
-                      executeGitCommand(btn.cmd)
-                    }
-                  }}
-                  disabled={isLoading}
-                  className={`${btn.color} text-white p-3 rounded text-sm font-bold transition-all duration-200 hover:scale-105 disabled:opacity-50`}
-                >
-                  {btn.label}
-                </button>
-              ))}
-            </div>
+            {/* Enhanced Command Center */}
+            <Card className="bg-gradient-to-br from-purple-900/90 to-pink-900/90 border-purple-500/50 backdrop-blur-md shadow-2xl shadow-purple-500/20">
+              <div className="p-4 sm:p-6">
+                <h3 className="text-purple-300 font-bold mb-3 sm:mb-4 text-center text-lg sm:text-xl flex items-center justify-center gap-2">
+                  ⚡ COMMAND CENTER ⚡<div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
+                </h3>
+                <p className="text-purple-200/80 text-center mb-4 sm:mb-6 text-xs sm:text-sm">
+                  Choose your adventure! Use buttons for quick access or type commands like a pro.
+                </p>
+
+                {/* All Command Buttons */}
+                <div className="grid grid-cols-2 gap-2 sm:gap-3">
+                  {allCommands.map((btn) => (
+                    <button
+                      key={btn.cmd}
+                      onClick={() => {
+                        if (!isLoading) {
+                          executeGitCommand(btn.cmd)
+                        }
+                      }}
+                      disabled={isLoading}
+                      className={`${btn.color} text-white p-3 sm:p-4 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 hover:scale-105 hover:shadow-lg disabled:opacity-50 group relative overflow-hidden`}
+                    >
+                      <div className="flex items-center justify-center gap-1 sm:gap-2 relative z-10">
+                        {btn.icon}
+                        <span className="hidden xs:inline sm:inline">{btn.label}</span>
+                        <span className="xs:hidden sm:hidden">{btn.label.split(" ")[0]}</span>
+                      </div>
+                      <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </button>
+                  ))}
+                </div>
+
+                <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-purple-800/30 rounded-lg border border-purple-600/30">
+                  <p className="text-purple-200/80 text-xs text-center">
+                    💡 Pro tip: You can also type commands in the terminal for the full developer experience!
+                  </p>
+                </div>
+              </div>
+            </Card>
           </div>
 
-          {/* Terminal */}
+          {/* Enhanced Terminal */}
           <div className="lg:col-span-1 flex flex-col">
-            <Card className="bg-black/95 border-green-600/70 backdrop-blur-sm flex-1 flex flex-col shadow-2xl shadow-green-500/20">
-              <div className="bg-gradient-to-r from-green-900/50 to-blue-900/50 px-4 py-2 border-b border-green-600/50 flex items-center gap-2">
-                <Terminal className="w-4 h-4 text-green-400" />
-                <span className="text-green-300 font-mono text-sm font-bold">lakshya@minecraft-dev:~$</span>
-                <div className="ml-auto flex gap-1">
-                  <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+            <Card className="bg-black/95 border-green-500/70 backdrop-blur-md flex-1 flex flex-col shadow-2xl shadow-green-500/30">
+              <div className="bg-gradient-to-r from-green-900/60 to-blue-900/60 px-4 sm:px-6 py-2 sm:py-3 border-b border-green-600/50 flex items-center gap-2 sm:gap-3">
+                <Terminal className="w-4 h-4 sm:w-5 sm:h-5 text-green-400" />
+                <span className="text-green-300 font-mono text-sm sm:text-base font-bold">
+                  lakshya@minecraft-dev:~$
+                </span>
+                <div className="ml-auto flex gap-1 sm:gap-2">
+                  <div className="w-2 h-2 sm:w-3 sm:h-3 bg-red-500 rounded-full shadow-lg"></div>
+                  <div className="w-2 h-2 sm:w-3 sm:h-3 bg-yellow-500 rounded-full shadow-lg"></div>
+                  <div className="w-2 h-2 sm:w-3 sm:h-3 bg-green-500 rounded-full animate-pulse shadow-lg"></div>
                 </div>
               </div>
 
               {/* Terminal Content */}
               <div
                 ref={terminalRef}
-                className="flex-1 p-4 font-mono text-sm text-green-300 overflow-y-auto"
-                style={{ height: "400px" }}
+                className="flex-1 p-4 sm:p-6 font-mono text-xs sm:text-sm text-green-300 overflow-y-auto"
+                style={{ height: "300px", minHeight: "300px" }}
               >
                 {history.map((line, index) => (
                   <div key={`line-${index}`} className="mb-1 leading-relaxed">
                     {line}
                   </div>
                 ))}
-                {isLoading && <div className="text-yellow-400 animate-pulse">⚡ Processing command...</div>}
+                {isLoading && (
+                  <div className="text-yellow-400 animate-pulse flex items-center gap-2">
+                    <div className="w-2 h-2 bg-yellow-400 rounded-full animate-bounce"></div>⚡ Processing command...
+                  </div>
+                )}
               </div>
 
               {/* Enhanced System Stats */}
-              <div className="px-4 py-2 border-t border-green-600/30 bg-black/50">
-                <div className="grid grid-cols-4 gap-2 text-xs">
-                  <div className="flex items-center gap-1 text-green-400">
-                    <Cpu className="w-3 h-3" />
-                    <span>CPU: 85%</span>
+              <div className="px-4 sm:px-6 py-2 sm:py-3 border-t border-green-600/30 bg-black/60">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 text-xs">
+                  <div className="flex items-center gap-1 sm:gap-2 text-green-400">
+                    <Cpu className="w-3 h-3 sm:w-4 sm:h-4" />
+                    <span className="font-medium">CPU: 85%</span>
                   </div>
-                  <div className="flex items-center gap-1 text-blue-400">
-                    <HardDrive className="w-3 h-3" />
-                    <span>RAM: 12GB</span>
+                  <div className="flex items-center gap-1 sm:gap-2 text-blue-400">
+                    <HardDrive className="w-3 h-3 sm:w-4 sm:h-4" />
+                    <span className="font-medium">RAM: 12GB</span>
                   </div>
-                  <div className="flex items-center gap-1 text-purple-400">
-                    <Activity className="w-3 h-3" />
-                    <span>Creative</span>
+                  <div className="flex items-center gap-1 sm:gap-2 text-purple-400">
+                    <Activity className="w-3 h-3 sm:w-4 sm:h-4" />
+                    <span className="font-medium">Creative</span>
                   </div>
-                  <div className="flex items-center gap-1 text-yellow-400">
-                    <Star className="w-3 h-3" />
-                    <span>Multi-Talent</span>
+                  <div className="flex items-center gap-1 sm:gap-2 text-yellow-400">
+                    <Star className="w-3 h-3 sm:w-4 sm:h-4" />
+                    <span className="font-medium">Multi-Talent</span>
                   </div>
                 </div>
               </div>
 
-              {/* Input Area */}
-              <form onSubmit={handleSubmit} className="p-3 border-t border-green-600/50 bg-black/90">
-                <div className="flex items-center gap-2">
-                  <span className="text-green-400 font-mono text-sm font-bold">$</span>
+              {/* Enhanced Input Area */}
+              <form onSubmit={handleSubmit} className="p-3 sm:p-4 border-t border-green-600/50 bg-black/90">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <span className="text-green-400 font-mono text-sm sm:text-base font-bold">$</span>
                   <input
                     type="text"
                     value={command}
                     onChange={(e) => setCommand(e.target.value)}
                     disabled={isLoading}
-                    className="flex-1 bg-transparent text-green-300 font-mono text-sm outline-none border-b border-green-600/30 pb-1 focus:border-green-400 focus:shadow-lg focus:shadow-green-500/20 disabled:opacity-50"
+                    className="flex-1 bg-transparent text-green-300 font-mono text-sm sm:text-base outline-none border-b-2 border-green-600/40 pb-1 sm:pb-2 focus:border-green-400 focus:shadow-lg focus:shadow-green-500/30 disabled:opacity-50 transition-all duration-300"
                     placeholder={isLoading ? "Processing..." : "git <command>"}
                     autoFocus
                   />
